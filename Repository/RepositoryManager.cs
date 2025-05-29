@@ -1,5 +1,4 @@
 ﻿using Contracts;
-using Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Repository
@@ -7,22 +6,17 @@ namespace Repository
     public sealed class RepositoryManager : IRepositoryManager
     {
         private readonly RepositoryContext _repositoryContext;
-        private readonly Lazy<ICustomerRepository> _customerRepository;
-        private readonly Lazy<IAccountRepository> _accountRepository;
-        private readonly Lazy<IAuditRepository> _auditRepository;
+        private readonly Lazy<IEmployeeRepository> _employeeRepository;
 
-        public RepositoryManager(RepositoryContext repositoryContext, RoleManager<UserRole> roleManager)
+        public RepositoryManager(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
-            _customerRepository = new Lazy<ICustomerRepository>(() => new CustomerRepository(repositoryContext));
-            _accountRepository = new Lazy<IAccountRepository>(() => new AccountRepository(repositoryContext));
+            _employeeRepository = new Lazy<IEmployeeRepository>(() => new EmployeeRepository(repositoryContext));
 
 
         }
 
-        public ICustomerRepository Customer => _customerRepository.Value;
-        public IAccountRepository Account => _accountRepository.Value;
-        public IAuditRepository Audit => _auditRepository.Value;
+        public IEmployeeRepository Employee => _employeeRepository.Value;
 
         public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
     }

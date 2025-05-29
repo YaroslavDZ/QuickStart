@@ -2,9 +2,7 @@
 {
     public interface IRepositoryManager
     {
-        IAuditRepository Audit { get; }
-        ICustomerRepository Customer { get; }
-        IAccountRepository Account { get; }
+        IEmployeeRepository Employee { get; }
         Task SaveAsync();
     }
 }
